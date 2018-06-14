@@ -12,6 +12,7 @@ var arra = [];
 app.post("/", (req, res)=>{
     res.status(200);
     res.send("OK")
+    console.log(req.body.data);
     if(req.body.data){
         arra.push(req.body.data);
     }
@@ -19,10 +20,19 @@ app.post("/", (req, res)=>{
 
 app.post("/data", (req, res) => {
     res.status(200);
-    var a = arra.length;
-    console.log(req.body.data.length, " ", req.body.data)
-    console.log(arra.length);
-    res.send();
+    var arr = [];
+    // console.log(req.body.data.length)
+    // console.log(arra.length);
+    if (arra.length){
+        arra.map((a, i) =>{
+            if(i>=req.body.data.length){
+                if(a.ppl!=req.body.data.ppl){
+                    arr.push(a);
+                }
+            }
+        })
+    }
+    res.send(arr);
     res.end();
 })
 
